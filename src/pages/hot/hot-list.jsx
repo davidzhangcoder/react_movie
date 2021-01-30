@@ -10,8 +10,8 @@ const HotList = ({ data }) => {
             {
                 data.map((e, i) => {
                     return (
-                        <div className={styles["content-outter"]}>
-                            <div className={styles.content} key={i}>
+                        <div className={styles["content-outter"]} key={i}>
+                            <div className={styles.content}>
                                 <div className={styles.image}>
                                     {/* <span></span> */}
                                     {/* <span style={{background: "url("+e.Poster+")"}}></span> */}

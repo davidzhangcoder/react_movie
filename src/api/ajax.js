@@ -29,14 +29,14 @@ const TYPES = {
     POST: 'POST'
 }
 
-const BASE_URL = 'https://www.omdbapi.com/?s=%27man%27&apikey=4a3b711b';
+const BASE_URL = 'https://www.omdbapi.com';
 
-export const reqRecommendData = () => {
-    return ajax(BASE_URL)
+export const reqRecommendData = (page) => {
+    return ajax(BASE_URL + `/?s=%27man%27&page=${page}&apikey=4a3b711b`)
 }
 
-export const reqHotData = () => {
-    return ajax(BASE_URL +'/hot')
+export const reqHotData = (page) => {
+    return ajax(BASE_URL + `/?s=%27man%27&page=${page}&apikey=4a3b711b`)
 }
 
 export const reqSearch = (keyword) => {

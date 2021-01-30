@@ -2,29 +2,37 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import HotList from './hot-list';
-import { getRecommendData } from '../../redux/action';
+import { getHotData, cleanHotData } from '../../redux/action';
 import { useSetTimeout } from '../../utils/hooks';
 
 export default function HotMain() {
-    const { data, count, loading } = useSelector(state => state.recommend);
+
+    const { data, count, loading } = useSelector(state => state.hot);
     const dispatch = useDispatch();
 
+    const [page,setPage] = useState(1);
+
     const [recommandLoadState, recommandSetLoadState, recommandTimeoutFn, loadingRef] = useSetTimeout(500);
-    const dispatchGetRecommendData = () => {
+    const dispatchGetHotData = (page) => {
         recommandTimeoutFn();
-        dispatch(getRecommendData());
+        dispatch(getHotData(page));
     }
 
     useEffect(() => {
-        dispatchGetRecommendData();
-    }, [])
+        dispatchGetHotData(page);
+        return ()=>{
+            // console.log("need to clean2");
+            dispatch(cleanHotData())
+            clearTimeout(loadingRef.current);
+        }
+    }, [page])
 
     if (loading === false && recommandLoadState != false) {
         recommandSetLoadState(false)
         clearTimeout(loadingRef.current);
     }
 
-    console.log(data);
+    // console.log(data);
     if (recommandLoadState)
         return <div>loading</div>
     else
