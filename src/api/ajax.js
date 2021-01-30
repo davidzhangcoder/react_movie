@@ -29,7 +29,7 @@ const TYPES = {
     POST: 'POST'
 }
 
-const BASE_URL = 'https://www.omdbapi.com/?s=%27super%20man%27&apikey=4a3b711b';
+const BASE_URL = 'https://www.omdbapi.com/?s=%27man%27&apikey=4a3b711b';
 
 export const reqRecommendData = () => {
     return ajax(BASE_URL)

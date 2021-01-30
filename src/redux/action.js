@@ -16,7 +16,7 @@ export const getRecommendData = () => {
             if( status === 200)
                 dispatch(sendDataToState(GET_RECOMMEND_DATA,data))
 
-        }, 5000)
+        }, 1000)
 
     }
 }

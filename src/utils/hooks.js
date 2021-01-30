@@ -13,8 +13,8 @@ export function useSetTimeout(time) {
     useEffect(
         ()=>{
             return ()=>{
-                if(loadingRef1.current) {
-                    clearTimeout(loadingRef1.current);
+                if(loadingRef.current) {
+                    clearTimeout(loadingRef.current);
                 }
             }
         }

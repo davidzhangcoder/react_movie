@@ -13,14 +13,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 const htmlWebPackPlugin = new HtmlWebPackPlugin({
-    template: path.join(__dirname, "./src/index.html"), //指明源文件的位置, __dirname是指当前文件(即webpack.config.js)所在的目录
+    template: path.join(__dirname, "./public/index.html"), //指明源文件的位置, __dirname是指当前文件(即webpack.config.js)所在的目录
     filename: 'index.html',//生成的内存中首页的名称 
-    minify: {
-        //压缩html文件
-        collapseWhitespace: true,
-        removeComments: true,
-        removeAttributeQuotes: true,
-    }
+    // minify: {
+    //     //压缩html文件
+    //     collapseWhitespace: true,
+    //     removeComments: true,
+    //     removeAttributeQuotes: true,
+    // }
 });
 
 //用于postcss调试开发环境-browserslist中的development（默认是看生产环境，跟mode是否配development无关），注释掉下面这行，即为用于生产环境
@@ -65,10 +65,10 @@ module.exports = {
             {
                 test: /\.css$/, use: [
                     //创建style标签，将样式放入
-                    { loader: 'style-loader' },
+                    // { loader: 'style-loader' },
 
                     //这个loader取代style-loader, 作用:提取js中的css成单独文件
-                    //MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     {
                         //将css文件整合到js文件中
                         loader: 'css-loader',
