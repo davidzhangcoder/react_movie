@@ -32,7 +32,6 @@ function hot(state = initialHot, action) {
         case GET_HOT_DATA_LOADING:
             return Object.assign({},state,{loading:true});
         case GET_HOT_DATA:
-            debugger
             return Object.assign({},{data:[...state.data, ...action.data.Search], count:action.data.totalResults, loading:false});
         case CLEAN_HOT_DATA:
             return Object.assign({},initialHot,{loading:false})

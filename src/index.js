@@ -19,4 +19,4 @@ ReactDOM.render(
 // 2.scroll
 // 3.loading 蒙版
 
-//20210130 - eslint, babel, javascript, scroll, search
+//20210130 - eslint, babel, javascript, scroll, search, skeleton

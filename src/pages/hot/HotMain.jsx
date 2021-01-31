@@ -10,7 +10,7 @@ export default function HotMain() {
     const { data, count, loading } = useSelector(state => state.hot);
     const dispatch = useDispatch();
 
-    const [page,setPage] = useState(1);
+    const [page, setPage] = useState(1);
 
     const [recommandLoadState, recommandSetLoadState, recommandTimeoutFn, loadingRef] = useSetTimeout(500);
     const dispatchGetHotData = (page) => {
@@ -20,12 +20,15 @@ export default function HotMain() {
 
     useEffect(() => {
         dispatchGetHotData(page);
-        return ()=>{
+    }, [page])
+
+    useEffect(() => {
+        return () => {
             // console.log("need to clean2");
             dispatch(cleanHotData())
             clearTimeout(loadingRef.current);
         }
-    }, [page])
+    }, [])
 
     if (loading === false && recommandLoadState != false) {
         recommandSetLoadState(false)

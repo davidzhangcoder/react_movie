@@ -39,6 +39,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.1.4",
+    "@better-scroll/pull-up": "^2.1.4",
     "antd": "^4.9.2",
     "axios": "^0.21.0",
     "prop-types": "^15.7.2",

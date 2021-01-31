@@ -1,0 +1,12 @@
+.user_wrapper{
+    height: 100%;
+    overflow: hidden;
+    .user_content{
+        min-height: 100%;
+        border: 2px solid blue
+    }
+    .home_top {
+        height: 100px;
+        border: 1px solid red;
+    }
+}
