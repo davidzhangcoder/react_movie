@@ -171,7 +171,7 @@ module.exports = {
         minimizer: [new UglifyJsPlugin()],
     },
 
-    devtool: 'eval-source-map'
+    devtool: 'source-map'
 }
 
 //优化：

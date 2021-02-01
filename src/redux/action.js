@@ -5,7 +5,7 @@ import { reqRecommendData, reqHotData } from '../api/ajax'
 
 const sendDataToState = (type, data) => ({type, data})
 
-export const getRecommendData = (page) => {
+export const getRecommendData = (page,callback) => {
     return dispatch => {
         dispatch(sendDataToState(GET_RECOMMEND_DATA_LOADING,{}))
 
@@ -14,10 +14,13 @@ export const getRecommendData = (page) => {
             const response = await reqRecommendData(page)
             //  console.log(response);
             const { data, status } = response;
-            if( status === 200)
+            if( status === 200){
+                if(callback)
+                    callback();
                 dispatch(sendDataToState(GET_RECOMMEND_DATA,data))
+            }
 
-        }, 1000)
+        }, 2000)
 
     }
 }
