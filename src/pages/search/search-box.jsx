@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-import './search-box.scss'
+import styles from './search-box.scss'
 
 const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
     // console.log("render SearchBox")
@@ -13,16 +13,20 @@ const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
         setSearchKey(searchKey);
     }
 
-    useEffect(()=>{
-        searchBoxRef.current.value=selectedSearchKey;
-    }
-    ,[selectedSearchKey])
+    // useEffect(()=>{
+    //     searchBoxRef.current.value=selectedSearchKey;
+    // }
+    // ,[selectedSearchKey])
 
     return (
-        <div className="header">
-            <input type="text" className="header-left" id="search-box" ref={searchBoxRef}/>
+        <div className={styles.header}>
 
-            <div className="header-right">
+            {/* input, img, iframe不支持伪元素，如before, after */}
+            <input type="text" className={styles['header-left']} id="search-box" ref={searchBoxRef}/>
+
+            {/* <div className={styles['header-left']}></div> */}
+
+            <div className={styles['header-right']}>
                 <a onClick={doSearch}>查找</a>
             </div>
         </div>

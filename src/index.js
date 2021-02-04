@@ -24,10 +24,16 @@ ReactDOM.render(
 //20210130 - 
 // eslint, 
 // babel, 
-// javascript, 
+// Done - javascript, 
 // Done - scroll, 
 // search, 
 // skeleton
 
 // 20210201
 // 在hot list tab, 点浏览器刷新button, 会加载recommand和hot, 但地址栏是recommand
+
+//learned
+// 1.上下布局
+// 2.等分
+// 3.better-scroll
+// 4.input不能有伪元素

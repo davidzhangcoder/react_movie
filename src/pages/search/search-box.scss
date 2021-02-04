@@ -1,6 +1,6 @@
 .header{
-    position: fixed;
-    top: 0px;
+    // position: fixed;
+    // top: 0px;
     min-width: 320px;
     max-width: 540px;
     width: 100%;
@@ -10,8 +10,9 @@
     min-height: 44px;
     display: flex;
     flex-direction: row;
+    position: relative;
 
-    border: 1px solid red;
+    // border: 1px solid red;
 }
 
 .header>input {
@@ -33,32 +34,36 @@
     color: #666;
 }
 
-.header-left::before{
+.header::before{
     position:absolute;
-    content: "";
+    content: " ";
     width: 20px;
     height: 20px;
-    border: 2px solid blue;
-    left: 7px;
-    top: 2px;
+    left: 19px;
+    top: 13px;
+    z-index: 1;
+    background: url(../../images/sprite.png) no-repeat -59px -279px;
+    background-size: 104px auto;
+
+    // border: 1px solid blue;
 }
 
 .header-right{
     /* background-color: #bbb; */
     width:44px;
     text-align: center;
-    line-height: 20px;
+    line-height: 42px;
     font-size: 12px;
     color:  #2eaae0;
 }
 
 
 
-.header-right>a::before{
-    content: "";
-    width: 20px;
-    height: 20px;
-    border: 2px solid red;
-    display:block;
-    margin: 2px auto 0px;
-}
+// .header-right>a::before{
+//     content: "";
+//     width: 20px;
+//     height: 20px;
+//     border: 2px solid red;
+//     display:block;
+//     margin: 2px auto 0px;
+// }

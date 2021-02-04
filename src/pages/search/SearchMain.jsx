@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import styles from './SearchMain.scss'
 import { searchMovie, cleanSearchMovie } from '../../redux/action'
 import SearchItem from './SearchItem'
+import SearchBox from './search-box'
 
 class SearchMain extends React.PureComponent {
     constructor(props) {
@@ -38,16 +39,16 @@ class SearchMain extends React.PureComponent {
                 }
             })
             this.bs.on('pullingUp', () => {
-                this.setState( (state,props) => ({page: state.page + 1}), () => {
-                    this.props.searchMovie(this.state.page, ()=>{
+                this.setState((state, props) => ({ page: state.page + 1 }), () => {
+                    this.props.searchMovie(this.state.page, () => {
                         this.resetBs();
                     })
-                } )
+                })
             })
 
         }
 
-        if( this.bs )
+        if (this.bs)
             this.bs.refresh()
     }
 
@@ -61,29 +62,36 @@ class SearchMain extends React.PureComponent {
         const loading = this.props.loading;
 
         return (
-            <div className={styles['search-item-box']} ref={el => this.wrapper.current = el}>
-                <div className={styles['search-item-box-content']}>
+            <div id={styles['search-page-content']}>
 
-                    {
-                        data.map((item, index) => {
-                            return <SearchItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></SearchItem>
-                        })
-                    }
+                    <SearchBox selectedSearchKey="test"></SearchBox>
 
-                    <div className={styles['pullup-tips']}>
-                        {
-                            loading ? (
-                                <div className={styles['after-trigger']}>
-                                    <span className={styles['pullup-txt']}>Loading...</span>
-                                </div>) : (
-                                    <div className={styles['before-trigger']}>
-                                        <span className={styles['pullup-txt']}>Pull up and load more</span>
-                                    </div>)
-                        }
-                    </div>
+                    <div className={styles['search-item-box']} ref={el => this.wrapper.current = el}>
+                        <div className={styles['search-item-box-content']}>
 
-                </div>
-            </div >
+                            {
+                                data.map((item, index) => {
+                                    return <SearchItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></SearchItem>
+                                })
+                            }
+
+                            <div className={styles['pullup-tips']}>
+                                {
+                                    loading ? (
+                                        <div className={styles['after-trigger']}>
+                                            <span className={styles['pullup-txt']}>Loading...</span>
+                                        </div>) : (
+                                            <div className={styles['before-trigger']}>
+                                                <span className={styles['pullup-txt']}>Pull up and load more</span>
+                                            </div>)
+                                }
+                            </div>
+
+                        </div>
+                    </div >
+
+
+            </div>
         )
     }
 
