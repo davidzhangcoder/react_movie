@@ -1,7 +1,8 @@
 import { GET_RECOMMEND_DATA, GET_RECOMMEND_DATA_LOADING, CLEAN_RECOMMEND_DATA,
-    GET_HOT_DATA, GET_HOT_DATA_LOADING, CLEAN_HOT_DATA
+    GET_HOT_DATA, GET_HOT_DATA_LOADING, CLEAN_HOT_DATA,
+    SEARCH_MOVIE, SEARCH_MOVIE_LOADING, CLEAN_SEARCH_MOVIE
  } from './action-types'
-import { reqRecommendData, reqHotData } from '../api/ajax'
+import { reqRecommendData, reqHotData, reqSearch } from '../api/ajax'
 
 const sendDataToState = (type, data) => ({type, data})
 
@@ -25,7 +26,7 @@ export const getRecommendData = (page,callback) => {
     }
 }
 
-export const getHotData = (page) => {
+export const getHotData = (page, callback) => {
     return dispatch => {
         dispatch(sendDataToState(GET_HOT_DATA_LOADING,{}))
 
@@ -34,8 +35,31 @@ export const getHotData = (page) => {
             const response = await reqHotData(page)
             //  console.log(response);
             const { data, status } = response;
-            if( status === 200)
+            if( status === 200) {
+                if(callback)
+                    callback();
                 dispatch(sendDataToState(GET_HOT_DATA,data))
+            }
+
+        }, 1000)
+
+    }
+}
+
+export const searchMovie = (page, callback) => {
+    return dispatch => {
+        dispatch(sendDataToState(SEARCH_MOVIE_LOADING,{}))
+
+        setTimeout(async ()=>{
+
+            const response = await reqSearch(page)
+             console.log(response);
+            const { data, status } = response;
+            if( status === 200) {
+                if(callback)
+                    callback();
+                dispatch(sendDataToState(SEARCH_MOVIE,data))
+            }
 
         }, 1000)
 
@@ -48,4 +72,8 @@ export const cleanRecommandData = () => {
 
 export const cleanHotData = () => {
     return {type:CLEAN_HOT_DATA, data:{}}
+}
+
+export const cleanSearchMovie = () => {
+    return {type:CLEAN_SEARCH_MOVIE, data:{}}
 }

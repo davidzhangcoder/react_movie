@@ -16,7 +16,18 @@ ReactDOM.render(
     , document.getElementById('app'))
 
 // 1.切换tab,不需要retrieve data
-// 2.scroll
-// 3.loading 蒙版
+// Done - 2.scroll
+// 3. loading 蒙版
+// 4. optimize scroll to component
+// 5. scroll 防抖
 
-//20210130 - eslint, babel, javascript, scroll, search, skeleton
+//20210130 - 
+// eslint, 
+// babel, 
+// javascript, 
+// Done - scroll, 
+// search, 
+// skeleton
+
+// 20210201
+// 在hot list tab, 点浏览器刷新button, 会加载recommand和hot, 但地址栏是recommand

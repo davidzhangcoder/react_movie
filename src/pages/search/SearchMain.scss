@@ -10,3 +10,17 @@
         border: 1px solid red;
     }
 }
+
+.search-item-box{
+    // display: flex;
+    // flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .search-item-box-content{
+        min-height: 100%;
+
+        border: 2px solid blue
+    }
+}

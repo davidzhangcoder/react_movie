@@ -39,6 +39,6 @@ export const reqHotData = (page) => {
     return ajax(BASE_URL + `/?s=%27man%27&page=${page}&apikey=4a3b711b`)
 }
 
-export const reqSearch = (keyword) => {
-    return ajax(BASE_URL +'/search', {keyword})
+export const reqSearch = (page) => {
+    return ajax(BASE_URL + `/?s=%27woman%27&page=${page}&apikey=4a3b711b`)
 }
