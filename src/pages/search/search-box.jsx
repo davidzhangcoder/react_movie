@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react'
+import {
+    CloseOutlined
+  } from '@ant-design/icons';
+
 
 import styles from './search-box.scss'
 
@@ -23,6 +27,8 @@ const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
 
             {/* input, img, iframe不支持伪元素，如before, after */}
             <input type="text" className={styles['header-left']} id="search-box" ref={searchBoxRef}/>
+
+            <CloseOutlined className={styles['close-outlined']}/>
 
             {/* <div className={styles['header-left']}></div> */}
 

@@ -37,3 +37,4 @@ ReactDOM.render(
 // 2.等分
 // 3.better-scroll
 // 4.input不能有伪元素
+// 5.Search Box 要分为input和X (如需要X)
