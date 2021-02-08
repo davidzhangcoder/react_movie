@@ -20,6 +20,7 @@ ReactDOM.render(
 // 3. loading 蒙版
 // 4. optimize scroll to component
 // 5. scroll 防抖
+// 6. svg
 
 //20210130 - 
 // eslint, 

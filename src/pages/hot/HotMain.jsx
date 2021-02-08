@@ -7,8 +7,9 @@ import HotList from './hot-list';
 import { getHotData, cleanHotData } from '../../redux/action';
 import { useSetTimeout } from '../../utils/hooks';
 import styles from './HotMain.scss'
+import Scroller from '../../component/scroller/scroller-hook'
 
-export default function HotMain() { 
+export default function HotMain() {
 
     //redux
     const { data, count, loading } = useSelector(state => state.hot);
@@ -16,10 +17,10 @@ export default function HotMain() {
 
     //useState
     const [page, setPage] = useState(1);
-    const [bScroll, setBScroll] = useState(null);
+    // const [bScroll, setBScroll] = useState(null);
 
     //useRef
-    const wrapper = useRef();
+    // const wrapper = useRef();
 
     //dispatch
     const [recommandLoadState, recommandSetLoadState, recommandTimeoutFn, loadingRef] = useSetTimeout(500);
@@ -30,12 +31,13 @@ export default function HotMain() {
 
     //useEffect
     useEffect(() => {
-        dispatchGetHotData(page, () => {
-            if (bScroll) {
-                bScroll.finishPullUp();
-                bScroll.refresh()
-            }
-        }
+        dispatchGetHotData(page
+        //     , () => {
+        //     if (bScroll) {
+        //         bScroll.finishPullUp();
+        //         bScroll.refresh()
+        //     }
+        // }
         );
     }, [page])
 
@@ -47,38 +49,38 @@ export default function HotMain() {
         }
     }, [])
 
-    useEffect(
-        () => {
-            // 注册插件
-            BScroll.use(Pullup)
+    // useEffect(
+    //     () => {
+    //         // 注册插件
+    //         BScroll.use(Pullup)
 
-            //console.log(wrapper.current)
-            if (wrapper.current) {
-                let bs = new BScroll(wrapper.current, {
-                    // probeType: 3,
-                    // pullUpLoad: true
-                    click: true,
-                    scrollY: true,
-                    // startY: startY.current,
-                    pullUpLoad: {
-                        threshold: -70
-                    }
-                })
+    //         //console.log(wrapper.current)
+    //         if (wrapper.current) {
+    //             let bs = new BScroll(wrapper.current, {
+    //                 // probeType: 3,
+    //                 // pullUpLoad: true
+    //                 click: true,
+    //                 scrollY: true,
+    //                 // startY: startY.current,
+    //                 pullUpLoad: {
+    //                     threshold: -70
+    //                 }
+    //             })
 
-                setBScroll(bs);
+    //             setBScroll(bs);
 
-                bs.on('pullingUp', () => {
-                    // startY.current = bs.startY;
-                    setPage((pre) => pre + 1)
-                })
-            }
-        }
-        , [])
+    //             bs.on('pullingUp', () => {
+    //                 // startY.current = bs.startY;
+    //                 setPage((pre) => pre + 1)
+    //             })
+    //         }
+    //     }
+    //     , [])
 
-    useEffect(() => {
-        if (bScroll)
-            bScroll.refresh();
-    })
+    // useEffect(() => {
+    //     if (bScroll)
+    //         bScroll.refresh();
+    // })
 
     if (loading === false && recommandLoadState != false) {
         recommandSetLoadState(false)
@@ -89,38 +91,57 @@ export default function HotMain() {
     // if (recommandLoadState)
     //     return <div>loading</div>
     // else
-        return (
-            <div className={styles['hot-item-box']} ref={el => wrapper.current = el}>
-                <div className={styles['hot-item-box-content']}>
+    return (
 
-                    <HotList data={data} ></HotList>
+        <Scroller pullUpCallback={()=>{
+            setPage((pre) => pre + 1)
+        }}>
+            <HotList data={data} ></HotList>
 
-                    <div className={styles['pullup-tips']}>
-                        {
-                            loading ? (
-                                <div className={styles['after-trigger']}>
-                                    <span className={styles['pullup-txt']}>Loading...</span>
-                                </div>) : (
-                                    <div className={styles['before-trigger']}>
-                                        <span className={styles['pullup-txt']}>Pull up and load more</span>
-                                    </div>)
-                        }
-                    </div>
+            <div className={styles['pullup-tips']}>
+                {
+                    loading ? (
+                        <div className={styles['after-trigger']}>
+                            <span className={styles['pullup-txt']}>Loading...</span>
+                        </div>) : (
+                            <div className={styles['before-trigger']}>
+                                <span className={styles['pullup-txt']}>Pull up and load more</span>
+                            </div>)
+                }
+            </div>
+        </Scroller>
 
-                </div>
-            </div >
+        // <div className={styles['hot-item-box']} ref={el => wrapper.current = el}>
+        //     <div className={styles['hot-item-box-content']}>
+
+        //         <HotList data={data} ></HotList>
+
+        //         <div className={styles['pullup-tips']}>
+        //             {
+        //                 loading ? (
+        //                     <div className={styles['after-trigger']}>
+        //                         <span className={styles['pullup-txt']}>Loading...</span>
+        //                     </div>) : (
+        //                         <div className={styles['before-trigger']}>
+        //                             <span className={styles['pullup-txt']}>Pull up and load more</span>
+        //                         </div>)
+        //             }
+        //         </div>
+
+        //     </div>
+        // </div >
 
 
 
-            // <ul className="recommend-skeleton">
-            //     {chunkArr.map((k, v) => {
-            //         return (
-            //             <li className="sk-item" key={v + "skeleton"}>
-            //                 <p className="square"></p>
-            //                 <p className="line"></p>
-            //             </li>
-            //         );
-            //     })}
-            // </ul>
-        )
+        // <ul className="recommend-skeleton">
+        //     {chunkArr.map((k, v) => {
+        //         return (
+        //             <li className="sk-item" key={v + "skeleton"}>
+        //                 <p className="square"></p>
+        //                 <p className="line"></p>
+        //             </li>
+        //         );
+        //     })}
+        // </ul>
+    )
 }

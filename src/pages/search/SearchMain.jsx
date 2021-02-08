@@ -7,6 +7,7 @@ import styles from './SearchMain.scss'
 import { searchMovie, cleanSearchMovie } from '../../redux/action'
 import SearchItem from './SearchItem'
 import SearchBox from './search-box'
+import Scroller from '../../component/scroller/scroller'
 
 class SearchMain extends React.PureComponent {
     constructor(props) {
@@ -26,31 +27,31 @@ class SearchMain extends React.PureComponent {
         })
     }
 
-    componentDidUpdate() {
-        if (this.bs == null && this.wrapper.current) {
-            this.bs = new BScroll(this.wrapper.current, {
-                // probeType: 3,
-                // pullUpLoad: true
-                click: true,
-                scrollY: true,
-                // startY: startY.current,
-                pullUpLoad: {
-                    threshold: -70
-                }
-            })
-            this.bs.on('pullingUp', () => {
-                this.setState((state, props) => ({ page: state.page + 1 }), () => {
-                    this.props.searchMovie(this.state.page, () => {
-                        this.resetBs();
-                    })
-                })
-            })
+    // componentDidUpdate() {
+    //     if (this.bs == null && this.wrapper.current) {
+    //         this.bs = new BScroll(this.wrapper.current, {
+    //             // probeType: 3,
+    //             // pullUpLoad: true
+    //             click: true,
+    //             scrollY: true,
+    //             // startY: startY.current,
+    //             pullUpLoad: {
+    //                 threshold: -70
+    //             }
+    //         })
+    //         this.bs.on('pullingUp', () => {
+    //             this.setState((state, props) => ({ page: state.page + 1 }), () => {
+    //                 this.props.searchMovie(this.state.page, () => {
+    //                     this.resetBs();
+    //                 })
+    //             })
+    //         })
 
-        }
+    //     }
 
-        if (this.bs)
-            this.bs.refresh()
-    }
+    //     if (this.bs)
+    //         this.bs.refresh()
+    // }
 
     componentWillUnmount() {
         this.props.cleanSearchMovie()
@@ -63,35 +64,57 @@ class SearchMain extends React.PureComponent {
 
         return (
             <div id={styles['search-page-content']}>
+                <SearchBox selectedSearchKey="test"></SearchBox>
 
-                    <SearchBox selectedSearchKey="test"></SearchBox>
+                <Scroller pullUpCallback={this.pullUpCallback}>
+                    {
+                        data.map((item, index) => {
+                            return <SearchItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></SearchItem>
+                        })
+                    }
 
-                    <div className={styles['search-item-box']} ref={el => this.wrapper.current = el}>
-                        <div className={styles['search-item-box-content']}>
-
-                            {
-                                data.map((item, index) => {
-                                    return <SearchItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></SearchItem>
-                                })
-                            }
-
-                            <div className={styles['pullup-tips']}>
-                                {
-                                    loading ? (
-                                        <div className={styles['after-trigger']}>
-                                            <span className={styles['pullup-txt']}>Loading...</span>
-                                        </div>) : (
-                                            <div className={styles['before-trigger']}>
-                                                <span className={styles['pullup-txt']}>Pull up and load more</span>
-                                            </div>)
-                                }
-                            </div>
-
-                        </div>
-                    </div >
-
-
+                    <div className={styles['pullup-tips']}>
+                        {
+                            loading ? (
+                                <div className={styles['after-trigger']}>
+                                    <span className={styles['pullup-txt']}>Loading...</span>
+                                </div>) : (
+                                    <div className={styles['before-trigger']}>
+                                        <span className={styles['pullup-txt']}>Pull up and load more</span>
+                                    </div>)
+                        }
+                    </div>
+                </Scroller>
             </div>
+
+
+            // <div id={styles['search-page-content']}>
+            //         <SearchBox selectedSearchKey="test"></SearchBox>
+
+            //         <div className={styles['search-item-box']} ref={el => this.wrapper.current = el}>
+            //             <div className={styles['search-item-box-content']}>
+
+            //                 {
+            //                     data.map((item, index) => {
+            //                         return <SearchItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></SearchItem>
+            //                     })
+            //                 }
+
+            //                 <div className={styles['pullup-tips']}>
+            //                     {
+            //                         loading ? (
+            //                             <div className={styles['after-trigger']}>
+            //                                 <span className={styles['pullup-txt']}>Loading...</span>
+            //                             </div>) : (
+            //                                 <div className={styles['before-trigger']}>
+            //                                     <span className={styles['pullup-txt']}>Pull up and load more</span>
+            //                                 </div>)
+            //                     }
+            //                 </div>
+
+            //             </div>
+            //         </div >
+            // </div>
         )
     }
 
@@ -100,6 +123,14 @@ class SearchMain extends React.PureComponent {
             this.bs.finishPullUp();
             this.bs.refresh()
         }
+    }
+
+    pullUpCallback = () => {
+        this.setState((state, props) => ({ page: state.page + 1 }), () => {
+            this.props.searchMovie(this.state.page, () => {
+                this.resetBs();
+            })
+        })
     }
 }
 
