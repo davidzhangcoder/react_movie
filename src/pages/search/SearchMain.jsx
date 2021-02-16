@@ -19,12 +19,13 @@ class SearchMain extends React.PureComponent {
         BScroll.use(Pullup)
         this.wrapper = React.createRef();
         this.bs = null;
+        this.searchBoxRef = React.createRef();
     }
 
     componentDidMount() {
-        this.props.searchMovie(this.state.page, () => {
-            this.resetBs();
-        })
+        // this.props.searchMovie(this.state.page, () => {
+        //     this.resetBs();
+        // })
     }
 
     // componentDidUpdate() {
@@ -64,7 +65,7 @@ class SearchMain extends React.PureComponent {
 
         return (
             <div id={styles['search-page-content']}>
-                <SearchBox selectedSearchKey="test"></SearchBox>
+                <SearchBox doSearchMovie={this.doSearchMovie} ref={this.searchBoxRef}></SearchBox>
 
                 <Scroller pullUpCallback={this.pullUpCallback}>
                     {
@@ -79,9 +80,11 @@ class SearchMain extends React.PureComponent {
                                 <div className={styles['after-trigger']}>
                                     <span className={styles['pullup-txt']}>Loading...</span>
                                 </div>) : (
-                                    <div className={styles['before-trigger']}>
-                                        <span className={styles['pullup-txt']}>Pull up and load more</span>
-                                    </div>)
+                                    data.length > 0 ?
+                                        <div className={styles['before-trigger']}>
+                                            <span className={styles['pullup-txt']}>Pull up and load more</span>
+                                        </div>
+                                        : null)
                         }
                     </div>
                 </Scroller>
@@ -126,11 +129,27 @@ class SearchMain extends React.PureComponent {
     }
 
     pullUpCallback = () => {
-        this.setState((state, props) => ({ page: state.page + 1 }), () => {
-            this.props.searchMovie(this.state.page, () => {
-                this.resetBs();
-            })
-        })
+        // this.setState((state, props) => ({ page: state.page + 1 }), () => {
+        //     this.props.searchMovie(this.state.page, () => {
+        //         this.resetBs();
+        //     })
+        // })
+        this.doSearchMovie();
+    }
+
+    doSearchMovie = (needClear = false) => {
+        // console.log(this.searchBoxRef.current.getSearchKey());
+
+        const searchKey = this.searchBoxRef.current.getSearchKey();
+        if (searchKey) {
+            this.props.searchMovie(this.state.page,
+                searchKey,
+                needClear,
+                () => {
+                    this.resetBs();
+                })
+        }
+
     }
 }
 

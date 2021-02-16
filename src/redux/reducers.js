@@ -45,7 +45,7 @@ function hot(state = initialHot, action) {
 const initialSearch = {
     data: [],
     count: 0,
-    loading: true
+    loading: false
 }
 function search(state = initialSearch, action) {
     switch (action.type) {

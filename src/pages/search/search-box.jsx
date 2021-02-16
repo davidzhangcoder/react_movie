@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useImperativeHandle } from 'react'
 import {
     CloseOutlined
   } from '@ant-design/icons';
@@ -6,16 +6,38 @@ import {
 
 import styles from './search-box.scss'
 
-const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
+const SearchBox = ( props, ref ) => {
     // console.log("render SearchBox")
 
     const searchBoxRef = useRef();
 
     const doSearch = () => {
-        console.log(searchBoxRef.current.value)
-        const searchKey = searchBoxRef.current.value;
-        setSearchKey(searchKey);
+        // console.log(searchBoxRef.current.value)
+        // const searchKey = searchBoxRef.current.value;
+
+        // setSearchKey(searchKey);
+
+        props.doSearchMovie(true);
     }
+
+    const clearSearchKey = () => {
+        searchBoxRef.current.value = "";
+    }
+
+    useImperativeHandle(ref, () => ({
+        getSearchKey: () => {
+            return searchBoxRef.current.value;
+        },
+        // reset
+
+        // working
+        // getResultFromRef:getResult
+
+        // working
+        // getResult
+    })
+);
+
 
     // useEffect(()=>{
     //     searchBoxRef.current.value=selectedSearchKey;
@@ -28,7 +50,7 @@ const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
             {/* input, img, iframe不支持伪元素，如before, after */}
             <input type="text" className={styles['header-left']} id="search-box" ref={searchBoxRef}/>
 
-            <CloseOutlined className={styles['close-outlined']}/>
+            <CloseOutlined className={styles['close-outlined']} onClick={clearSearchKey}/>
 
             {/* <div className={styles['header-left']}></div> */}
 
@@ -39,4 +61,4 @@ const SearchBox = ( {selectedSearchKey, setSearchKey} ) => {
     )
 }
 
-export default React.memo(SearchBox);
+export default React.memo(React.forwardRef(SearchBox));

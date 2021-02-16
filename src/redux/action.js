@@ -46,13 +46,16 @@ export const getHotData = (page, callback) => {
     }
 }
 
-export const searchMovie = (page, callback) => {
+export const searchMovie = (page, searchKey, needClearData, callback) => {
     return dispatch => {
+        if( needClearData )
+            dispatch(sendDataToState(CLEAN_SEARCH_MOVIE,{}))
+        
         dispatch(sendDataToState(SEARCH_MOVIE_LOADING,{}))
 
         setTimeout(async ()=>{
 
-            const response = await reqSearch(page)
+            const response = await reqSearch(page, searchKey)
              console.log(response);
             const { data, status } = response;
             if( status === 200) {

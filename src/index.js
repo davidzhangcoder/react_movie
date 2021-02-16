@@ -18,7 +18,7 @@ ReactDOM.render(
 // 1.切换tab,不需要retrieve data
 // Done - 2.scroll
 // 3. loading 蒙版
-// 4. optimize scroll to component
+// Done - 4. optimize scroll to component
 // 5. scroll 防抖
 // 6. svg
 
