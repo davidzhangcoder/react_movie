@@ -9,6 +9,7 @@ import { useSetTimeout } from '../../utils/hooks'
 import RecommendItem from './RecommendItem';
 import Scroller from '../../component/scroller/scroller-hook'
 import Loading from '../../component/loading/loading'
+import ListSkeleton from '../../component/skeleton/list-skeleton'
 
 export default function RecommendMain() {
 
@@ -122,7 +123,7 @@ export default function RecommendMain() {
                             // <div className={styles['after-trigger']}>
                             //     <span className={styles['pullup-txt']}>Loading...</span>
                             // </div>
-                            null
+                            <ListSkeleton></ListSkeleton>
                             ) : (
                                 <div className={styles['before-trigger']}>
                                     <span className={styles['pullup-txt']}>Pull up and load more</span>
