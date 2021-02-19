@@ -25,7 +25,7 @@ class Scroller extends React.PureComponent {
             BScroll.use(Pullup)
 
             this.bScroll = new BScroll(this.wrapper.current, {
-                click: true,
+                click: false,
                 scrollY: true,
                 pullUpLoad: {
                     threshold: -70

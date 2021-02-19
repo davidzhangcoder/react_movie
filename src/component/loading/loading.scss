@@ -1,0 +1,23 @@
+.loading-contrainer{
+    background: rgba(184, 181, 181, 0.4) !important;
+
+    z-index: 99;
+    position: fixed;
+    top:0px;
+    left:0px;
+    right: 0px;
+    bottom: 0px;
+
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // pointer-events: none; //使用此属性，可实现，遮罩层显示后，遮罩层底下的，按钮可点击，还有可以滚动
+}
+
+.loading-content {
+    display: block; //对行内元素，先要设置成block,才可以设置width
+    //margin: 0 auto; //要margin: 0 auto起作用，必须要设width
+    width: 100%;
+    text-align: center;
+}

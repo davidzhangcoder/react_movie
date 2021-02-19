@@ -9,6 +9,13 @@ import './css/normalize.css'
 import './css/reset.css'
 import './css/index.css'
 
+// for (let index = 0; index < 10; index++) {
+//     {
+//         let a = 1;
+//     }
+//     console.log(a);
+// }
+
 ReactDOM.render(
     <Provider store={store}>
         <App></App>

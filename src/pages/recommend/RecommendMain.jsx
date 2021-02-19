@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import BScroll from '@better-scroll/core'
 import Pullup from '@better-scroll/pull-up'
@@ -8,6 +8,7 @@ import { getRecommendData, cleanRecommandData } from '../../redux/action'
 import { useSetTimeout } from '../../utils/hooks'
 import RecommendItem from './RecommendItem';
 import Scroller from '../../component/scroller/scroller-hook'
+import Loading from '../../component/loading/loading'
 
 export default function RecommendMain() {
 
@@ -105,27 +106,31 @@ export default function RecommendMain() {
     // else
     return (
 
-        <Scroller pullUpCallback={() => {
-            setPage((pre) => pre + 1)
-            }}>
-            {
-                data.map((item, index) => {
-                    return <RecommendItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></RecommendItem>
-                })
-            }
-
-            <div className={styles['pullup-tips']}>
+        <Fragment>
+            {loading?<Loading></Loading>:null}
+            <Scroller pullUpCallback={() => {
+                setPage((pre) => pre + 1)
+                }}>
                 {
-                    loading ? (
-                        <div className={styles['after-trigger']}>
-                            <span className={styles['pullup-txt']}>Loading...</span>
-                        </div>) : (
-                            <div className={styles['before-trigger']}>
-                                <span className={styles['pullup-txt']}>Pull up and load more</span>
-                            </div>)
+                    data.map((item, index) => {
+                        return <RecommendItem key={index} poster={item.Poster} title={item.Title} year={item.Year}></RecommendItem>
+                    })
                 }
-            </div>
-        </Scroller>
+                <div className={styles['pullup-tips']}>
+                    {
+                        loading ? (
+                            // <div className={styles['after-trigger']}>
+                            //     <span className={styles['pullup-txt']}>Loading...</span>
+                            // </div>
+                            null
+                            ) : (
+                                <div className={styles['before-trigger']}>
+                                    <span className={styles['pullup-txt']}>Pull up and load more</span>
+                                </div>)
+                    }
+                </div>
+            </Scroller>
+        </Fragment>
 
         //两种方法都可以 - ref
         //ref={el => wrapper.current = el}

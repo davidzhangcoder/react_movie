@@ -6,6 +6,7 @@ const RecommendItem = ({title,year,poster}) =>{
     return (
         <div className={styles['recommend-item']}>
             <img src={poster}></img>
+            {/* <img src="../../images/shop_back_svg.svg"></img> */}
             <div>
                 <span>{title}</span>
                 <p>
